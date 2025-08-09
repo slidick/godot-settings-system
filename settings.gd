@@ -71,7 +71,7 @@ func update_cache(key_name: String, save_data: Dictionary) -> void:
 func _save_cache() -> void:
 	var file := FileAccess.open(CACHE_FILE_PATH, FileAccess.WRITE)
 	if not file:
-		Console.print("Error opening cache file for writing: %s" % FileAccess.get_open_error())
+		print("Error opening cache file for writing: %s" % FileAccess.get_open_error())
 		return
 	file.store_string(JSON.stringify(cache, "\t"))
 	file.close()
@@ -98,7 +98,7 @@ func update_settings(key_name: String, save_data: Dictionary) -> void:
 func _save_settings() -> void:
 	var file := FileAccess.open(SETTINGS_FILE_PATH, FileAccess.WRITE)
 	if not file:
-		Console.print("Error opening settings file for writing: %s" % FileAccess.get_open_error())
+		print("Error opening settings file for writing: %s" % FileAccess.get_open_error())
 		return
 	file.store_string(JSON.stringify(settings, "\t"))
 	file.close()
