@@ -55,6 +55,7 @@ func reload_cache() -> void:
 	if file:
 		var json: Dictionary = JSON.parse_string(file)
 		if json:
+			convert_json_to_int(json)
 			cache = json
 
 
@@ -82,6 +83,7 @@ func reload_settings() -> void:
 	if file:
 		var json: Dictionary = JSON.parse_string(file)
 		if json:
+			convert_json_to_int(json)
 			settings = json
 
 
@@ -106,3 +108,22 @@ func _save_settings() -> void:
 
 static func to_bool(_value: String) -> bool:
 	return _value.to_lower() == "true"
+
+
+static func convert_json_to_int(json: Variant) -> void:
+	if json is Dictionary:
+		for key: String in json:
+			if json[key] is float:
+				json[key] = int(json[key])
+			elif (json[key] is Array
+				or json[key] is Dictionary
+			):
+				convert_json_to_int(json[key])
+	elif json is Array:
+		for i in range(len(json)):
+			if json[i] is float:
+				json[i] = int(json[i])
+			elif (json[i] is Array
+				or json[i] is Dictionary
+			):
+				convert_json_to_int(json[i])
