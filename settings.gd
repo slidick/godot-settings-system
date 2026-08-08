@@ -87,13 +87,16 @@ func reload_settings() -> void:
 			settings = json
 
 
-func update_settings(key_name: String, save_data: Variant) -> void:
+func update_settings(key_name: String, save_data: Variant, sync_dictionary: bool = false) -> void:
 	reload_settings()
 	if key_name not in settings:
 		settings[key_name] = {}
 	if save_data is Dictionary:
-		for key: String in save_data:
-			settings[key_name][key] = save_data[key]
+		if sync_dictionary:
+			settings[key_name] = save_data
+		else:
+			for key: String in save_data:
+				settings[key_name][key] = save_data[key]
 	if save_data is Array:
 		settings[key_name] = save_data
 	_save_settings()
