@@ -13,7 +13,7 @@ var settings: Dictionary = {}
 var cache: Dictionary = {}
 
 
-func _ready() -> void:
+func _init() -> void:
 	reload_cache()
 	reload_settings()
 	load_cmdline_args()
